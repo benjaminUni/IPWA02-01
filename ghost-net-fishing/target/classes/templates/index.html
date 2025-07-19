@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+    <title>Ghost Net Fishing</title>
+</head>
+<body>
+    <div th:replace="fragments :: navbar"></div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Geisternetz melden</h5>
+        <a href="/nets/report" class="btn btn-primary">Jetzt melden</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Alle gemeldeten Netze</h5>
+        <a href="/nets/list" class="btn btn-secondary">Zur Liste</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>

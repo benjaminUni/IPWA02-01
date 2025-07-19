@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+    <title>Bergung übernehmen</title>
+</head>
+<body>
+<div class="container mt-4">
+    <div th:replace="fragments :: navbar"></div>
+    <h2>Bergung eines Geisternetzes übernehmen</h2>
+    
+    <form th:action="@{/nets/assign/{id}(id=${netId})}" th:object="${person}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required />
+        </div>
+
+        <div class="mb-3">
+    	<label for="phone" class="form-label">Telefonnummer</label>
+    	<input type="tel" th:field="*{phone}" class="form-control" id="phone"
+           pattern="^[0-9+\-\s()]{6,20}$"
+           title="Bitte gib eine gültige Telefonnummer ein (nur Ziffern, Leerzeichen, +, - oder Klammern)"
+           required />
+           <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Bergung übernehmen</button>
+        <a href="/nets/list" class="btn btn-secondary ms-2">Zurück zur Liste</a>
+    </form>
+    <div th:replace="fragments :: footer"></div>
+</div>
+</body>
+</html>

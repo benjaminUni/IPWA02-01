@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+    <title>Alle Geisternetze</title>
+</head>
+<body>
+    <div th:replace="fragments :: navbar"></div>
+<div class="container mt-4">
+    <h2 class="mb-4">Alle Geisternetze und deren Status</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Koordinaten</th>
+                    <th>Größe</th>
+                    <th>Status</th>
+                    <th>Bearbeiter</th>
+                    <th>Telefon</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="net : ${nets}">
+                    <td th:text="${net.id}">1</td>
+                    <td th:text="${net.latitude + ', ' + net.longitude}">Koordinaten</td>
+                    <td th:text="${net.area}">Größe</td>
+                    <td th:text="${net.status}">Status</td>
+                    <td th:text="${net.salvagingPerson != null ? net.salvagingPerson.name : '—'}">Name</td>
+                    <td th:text="${net.salvagingPerson != null ? net.salvagingPerson.phone : '—'}">Telefon</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/" class="btn btn-secondary mt-3">Zurück zur Startseite</a>
+</div>
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>

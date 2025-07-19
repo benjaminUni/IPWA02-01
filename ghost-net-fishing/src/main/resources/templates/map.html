@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+    <title>Geisternetze auf Karte</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container mt-4">
+    <h2>Geisternetze auf der Karte</h2>
+    <div id="map" style="height: 600px;"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script th:inline="javascript">
+    let map = L.map('map').setView([20, 0], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    let nets = /*[[${nets}]]*/ [];
+
+    nets.forEach(net => {
+        let color;
+        switch (net.status) {
+            case 'GEMELDET': color = 'purple'; break;
+            case 'BERGUNG_BEVORSTEHEND': color = 'gold'; break;
+            case 'VERSCHOLLEN': color = 'red'; break;
+            default: color = 'blue';
+        }
+
+        L.circleMarker([net.latitude, net.longitude], {
+            color: color,
+            radius: 10,
+            fillOpacity: 0.8
+        }).addTo(map).bindPopup(
+            'ID: ' + net.id + '<br>' +
+            'Größe: ' + net.area + '<br>' +
+            'Status: ' + net.status +
+            (net.salvagingPerson ? '<br>Bergende Person: ' + net.salvagingPerson.name : '')
+        );
+    });
+
+    // Korrektur bei verstecktem Container
+    window.addEventListener('load', function () {
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+    });
+</script>
+</body>
+</html>

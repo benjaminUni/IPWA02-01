@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+    <title>Geisternetz melden</title>
+</head>
+<body>
+    <div th:replace="fragments :: navbar"></div>
+<div class="container mt-4">
+    <h2>Geisternetz melden</h2>
+    <form th:action="@{/nets/report}" th:object="${ghostNet}" method="post">
+        <div class="mb-3">
+            <label for="latitude" class="form-label">Breitengrad</label>
+            <input type="number" step="any" th:field="*{latitude}" class="form-control" id="latitude" required />
+        </div>
+        <div class="mb-3">
+            <label for="longitude" class="form-label">Längengrad</label>
+            <input type="number" step="any" th:field="*{longitude}" class="form-control" id="longitude" required />
+        </div>
+        <div class="mb-3">
+            <label for="area" class="form-label">Größe (in m²)</label>
+            <input type="number" th:field="*{area}" class="form-control" id="area" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Melden</button>
+        <a href="/" class="btn btn-secondary">Abbrechen</a>
+    </form>
+</div>
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>
